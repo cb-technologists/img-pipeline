@@ -1,7 +1,9 @@
 # based on https://blog.jessfraz.com/post/building-container-images-securely-on-kubernetes/
+apiVersion: v1
+kind: Pod
 metadata:
   name: img
-  label:
+  labels:
     run: img
 spec:
   securityContext:
@@ -18,8 +20,8 @@ spec:
     volumeMounts:
     - name: cache-volume
       mountPath: /tmp
-    restartPolicy: never
   volumes:
   - name: cache-volume
     emptyDir: {}
+  restartPolicy: Never
   
