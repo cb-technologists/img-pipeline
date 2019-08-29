@@ -8,14 +8,14 @@ pipeline {
   stages {
     stage('Build and Push') {
       environment {
-        GCR_TOKEN = credentials('gcr-token')
+        DOCKER_HUB = credentials('docker-hub')
       }
       steps {
         container('img') {
           sh """
-            img build -t gcr.io/melgin/img-hello-world .
-            img login -u _json_key -p $GCR_TOKEN  https://gcr.io
-            img push gcr.io/melgin/img-hello-world
+            img build -t mattelgin/img-hello-world .
+            img login -u DOCKER_HUB_USR -p $DOCKER_HUB_PSW
+            img push mattelgin/img-hello-world
           """
         }
       }
