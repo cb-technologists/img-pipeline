@@ -12,7 +12,6 @@ spec:
   - name: img
     image: r.j3ss.co/img:v0.5.7
     imagePullPolicy: Always
-    workingDir: /repo
     command:
     - cat
     tty: true
