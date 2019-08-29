@@ -14,7 +14,7 @@ spec:
     command:
     - cat
     securityContext:
-      rawProc: true
+      procMount: Unmasked
     volumeMounts:
     - name: cache-volume
       mountPath: /tmp
