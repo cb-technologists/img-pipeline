@@ -15,6 +15,7 @@ spec:
     workingDir: /repo
     command:
     - cat
+    tty: true
     securityContext:
       procMount: Unmasked
     volumeMounts:
