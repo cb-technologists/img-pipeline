@@ -1,0 +1,27 @@
+# based on https://blog.jessfraz.com/post/building-container-images-securely-on-kubernetes/
+apiVersion: v1
+kind: Pod
+metadata:
+  name: img
+  label:
+    run: img
+spec:
+  securityContext:
+    runAsUser: 1000
+  containers:
+  - name: img
+    image: r.j3ss.co/img:v0.5.7
+    imagePullPolicy: Always
+    workingDir: /repo
+    command:
+    - cat
+    securityContext:
+      rawProc: true
+    volumeMounts:
+    - name: cache-volume
+      mountPath: /tmp
+    restartPolicy: never
+  volumes:
+  - name: cache-volume
+    emptyDir: {}
+  
