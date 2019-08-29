@@ -17,6 +17,7 @@ spec:
     tty: true
     securityContext:
       procMount: Unmasked
+      privileged: true
     volumeMounts:
     - name: cache-volume
       mountPath: /tmp
