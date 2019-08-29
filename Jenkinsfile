@@ -1,6 +1,7 @@
 pipeline {
   agent {
     kubernetes {
+      label "img"
       yamlFile 'imgPod.yaml'
     }
   }
