@@ -20,16 +20,19 @@ spec:
     securityContext:
       procMount: Unmasked
     volumeMounts:
-    - name: cache-volume
-      mountPath: /tmp
     - name: google-cloud-key
       mountPath: /var/secrets/google
     env:
     - name: GOOGLE_APPLICATION_CREDENTIALS
       value: /var/secrets/google/key.json
+    resources:
+      requests:
+        memory: "64Mi"
+        cpu: "250m"
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
   volumes:
-  - name: cache-volume
-    emptyDir: {}
   - name: google-cloud-key
     secret:
       secretName: img-secret
