@@ -7,14 +7,11 @@ pipeline {
   }
   stages {
     stage('Build and Push') {
-      environment {
-        DOCKER_HUB = credentials('docker-hub')
-      }
       steps {
         container('img') {
           sh """
             img build -t mattelgin/img-hello-world .
-            img login -u DOCKER_HUB_USR -p $DOCKER_HUB_PSW
+            cat /var/secrets/google/key.json | img login -u _json_key --password-stdin https://gcr.io
             img push mattelgin/img-hello-world
           """
         }

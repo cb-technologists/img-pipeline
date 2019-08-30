@@ -21,8 +21,16 @@ spec:
     volumeMounts:
     - name: cache-volume
       mountPath: /tmp
+    - name: google-cloud-key
+      mountPath: /var/secrets/google
+    env:
+    - name: GOOGLE_APPLICATION_CREDENTIALS
+      value: /var/secrets/google/key.json
   volumes:
   - name: cache-volume
     emptyDir: {}
+  - name: google-cloud-key
+    secret:
+      secretName: img-secret
   restartPolicy: Never
   
