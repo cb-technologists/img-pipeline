@@ -5,6 +5,8 @@ metadata:
   name: img
   labels:
     run: img
+  annotations:
+    container.apparmor.security.beta.kubernetes.io/img: unconfined
 spec:
   securityContext:
     runAsUser: 1000
@@ -17,7 +19,6 @@ spec:
     tty: true
     securityContext:
       procMount: Unmasked
-      privileged: true
     volumeMounts:
     - name: cache-volume
       mountPath: /tmp
