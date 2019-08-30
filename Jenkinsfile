@@ -10,9 +10,9 @@ pipeline {
       steps {
         container('img') {
           sh """
-            img build -t mattelgin/img-hello-world:latest .
+            img build -t gcr.io/melgin/img-hello-world .
             cat /var/secrets/google/key.json | img login -u _json_key --password-stdin https://gcr.io
-            img push gcr.io/melgin/img-hello-world:latest
+            img push gcr.io/melgin/img-hello-world
           """
         }
       }
