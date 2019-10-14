@@ -8,6 +8,7 @@ metadata:
   annotations:
     container.apparmor.security.beta.kubernetes.io/img: unconfined
 spec:
+  serviceAccountName: img-sa
   securityContext:
     runAsUser: 1000
   containers:
