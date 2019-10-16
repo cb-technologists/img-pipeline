@@ -16,7 +16,7 @@ pipeline {
         container('img') {
           sh """
             img build -t gcr.io/melgin/img-hello-world .
-            echo ${env.GCLOUD_ACCESS_TOKEN} img login -u _json_key --password-stdin https://gcr.io
+            img login -u oauth2accesstoken -p ${env.GCLOUD_ACCESS_TOKEN} https://gcr.io
             img push gcr.io/melgin/img-hello-world
           """
         }
