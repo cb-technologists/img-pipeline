@@ -8,10 +8,13 @@ pipeline {
   stages {
     stage('Build and Push') {
       steps {
+        container('gcloud') {
+          env.GCLOUD_ACCESS_TOKEN = sh returnStdout: true, script: "gcloud auth print-access-token"
+        }
         container('img') {
           sh """
             img build -t gcr.io/melgin/img-hello-world .
-            cat /var/secrets/google/key.json | img login -u _json_key --password-stdin https://gcr.io
+            echo ${env.GCLOUD_ACCESS_TOKEN} img login -u _json_key --password-stdin https://gcr.io
             img push gcr.io/melgin/img-hello-world
           """
         }

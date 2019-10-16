@@ -8,9 +8,9 @@ metadata:
   annotations:
     container.apparmor.security.beta.kubernetes.io/img: unconfined
 spec:
-  serviceAccountName: img-sa
   securityContext:
     runAsUser: 1000
+  serviceAccountName: img-sa
   containers:
   - name: img
     image: r.j3ss.co/img:v0.5.7
@@ -21,11 +21,33 @@ spec:
     securityContext:
       procMount: Unmasked
     volumeMounts:
-    - name: google-cloud-key
-      mountPath: /var/secrets/google
-    env:
-    - name: GOOGLE_APPLICATION_CREDENTIALS
-      value: /var/secrets/google/key.json
+    - name: docker-config
+      mountPath: /.docker/
+    - name: gcloud-config
+      mountPath: /.config/gcloud
+    # volumeMounts:
+    # - name: google-cloud-key
+    #   mountPath: /var/secrets/google
+    # env:
+    # - name: GOOGLE_APPLICATION_CREDENTIALS
+    #   value: /var/secrets/google/key.json
+    resources:
+      requests:
+        memory: "64Mi"
+        cpu: "250m"
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
+  - name: gcloud
+    image: gcr.io/cloud-builders/gcloud-slim:latest
+    command:
+    - cat
+    tty: true
+    volumeMounts:
+    - name: docker-config
+      mountPath: /.docker
+    - name: gcloud-config
+      mountPath: /.config/gcloud
     resources:
       requests:
         memory: "64Mi"
@@ -34,8 +56,13 @@ spec:
         memory: "128Mi"
         cpu: "500m"
   volumes:
-  - name: google-cloud-key
-    secret:
-      secretName: img-secret
+  - name: docker-config
+    emptyDir: {}
+  - name: gcloud-config
+    emptyDir: {}
+  # volumes:
+  # - name: google-cloud-key
+  #   secret:
+  #     secretName: img-secret
   restartPolicy: Never
   
