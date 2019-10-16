@@ -9,7 +9,7 @@ pipeline {
     stage('Build and Push') {
       steps {
         container('gcloud') {
-          env.GCLOUD_ACCESS_TOKEN = sh returnStdout: true, script: "gcloud auth print-access-token"
+          env.GCLOUD_ACCESS_TOKEN = sh(returnStdout: true, script: "gcloud auth print-access-token").trim()
         }
         container('img') {
           sh """
