@@ -13,7 +13,7 @@ spec:
   serviceAccountName: img-sa
   containers:
   - name: img
-    image: gcr.io/melgin/gcloud-img:0.1.0
+    image: gcr.io/melgin/gcloud-img:0.1.1
     imagePullPolicy: Always
     command:
     - cat
