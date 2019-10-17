@@ -6,4 +6,4 @@ RUN apk add python
 COPY --from=gcloud /builder/google-cloud-sdk /home/user/google-cloud-sdk
 
 USER user
-# RUN export PATH=$PATH:/home/user/google-cloud-sdk/bin
+RUN export PATH=$PATH:/home/user/google-cloud-sdk/bin
