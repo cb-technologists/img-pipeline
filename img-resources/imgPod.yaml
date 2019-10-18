@@ -7,10 +7,11 @@ metadata:
     run: img
   annotations:
     container.apparmor.security.beta.kubernetes.io/img: unconfined
+    container.seccomp.security.alpha.kubernetes.io/img: unconfined
 spec:
   securityContext:
     runAsUser: 1000
-  serviceAccountName: img-sa
+  serviceAccountName: img
   containers:
   - name: img
     image: gcr.io/melgin/gcloud-img:0.1.1
