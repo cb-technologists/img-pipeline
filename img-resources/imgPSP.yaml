@@ -40,6 +40,6 @@ spec:
   hostIPC: false
   hostNetwork: false
   # Ensures that no child process of a container can gain more privileges than its parent
-  allowPrivilegeEscalation: true
-  allowedProcMountTypes:
-  - Unmasked
+  allowPrivilegeEscalation: false
+  # allowedProcMountTypes:
+  # - Unmasked
