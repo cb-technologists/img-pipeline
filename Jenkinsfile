@@ -2,7 +2,7 @@ pipeline {
   agent {
     kubernetes {
       label "img"
-      yamlFile 'imgPod.yaml'
+      yamlFile 'img-resources/imgPod.yaml'
     }
   }
   stages {
