@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 
-# connect to cluster
-gcloud container clusters get-credentials melgin-alpha
-
 # create GSA (if not already created)
 gcloud iam service-accounts create img-gcr
 

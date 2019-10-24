@@ -9,37 +9,32 @@ metadata:
     seccomp.security.alpha.kubernetes.io/defaultProfileName:  'runtime/default'
     apparmor.security.beta.kubernetes.io/defaultProfileName:  'runtime/default'
 spec:
-  # prevents container from manipulating the network stack, accessing devices on the host and prevents ability to run DinD
-  privileged: false
+  allowPrivilegeEscalation: true
+  allowedProcMountTypes:
+  - Unmasked
+  - Default
   fsGroup:
     rule: 'MustRunAs'
     ranges:
-      # Forbid adding the root group.
       - min: 1
         max: 65535
+  hostPID: false
+  hostIPC: false
+  hostNetwork: false
+  privileged: false
   runAsUser:
     rule: 'MustRunAs'
     ranges:
-      # Don't allow containers to run as ROOT
       - min: 1
         max: 65535
   seLinux:
     rule: RunAsAny
   supplementalGroups:
     rule: RunAsAny
-  # Allow core volume types. But more specifically, don't allow mounting host volumes to include the Docker socket - '/var/run/docker.sock'
   volumes:
   - 'emptyDir'
   - 'secret'
   - 'downwardAPI'
   - 'configMap'
-  # persistentVolumes are required for CJOC and Managed Master StatefulSets
   - 'persistentVolumeClaim'
   - 'projected'
-  hostPID: false
-  hostIPC: false
-  hostNetwork: false
-  # Ensures that no child process of a container can gain more privileges than its parent
-  allowPrivilegeEscalation: false
-  # allowedProcMountTypes:
-  # - Unmasked

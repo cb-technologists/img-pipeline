@@ -26,6 +26,8 @@ spec:
       mountPath: /.docker/
     - name: gcloud-config
       mountPath: /.config/gcloud
+    - name: cache-volume
+      mountPath: /tmp/
     resources:
       requests:
         memory: "64Mi"
@@ -37,6 +39,8 @@ spec:
   - name: docker-config
     emptyDir: {}
   - name: gcloud-config
+    emptyDir: {}
+  - name: cache-volume
     emptyDir: {}
   restartPolicy: Never
   
