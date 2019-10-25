@@ -2,7 +2,7 @@ pipeline {
   agent {
     kubernetes {
       label "img"
-      yamlFile 'imgPod.yaml'
+      yamlFile 'img-resources/imgPod.yaml'
     }
   }
   stages {
@@ -10,8 +10,8 @@ pipeline {
       steps {
         container('img') {
           sh """
-            img build -t gcr.io/melgin/img-hello-world .
-            cat /var/secrets/google/key.json | img login -u _json_key --password-stdin https://gcr.io
+            img build -t gcr.io/melgin/img-hello-world ./hello-world
+            /home/user/google-cloud-sdk/bin/gcloud auth print-access-token | img login -u oauth2accesstoken --password-stdin https://gcr.io
             img push gcr.io/melgin/img-hello-world
           """
         }
